@@ -1,4 +1,3 @@
-
 import streamlit as st
 from streamlit_webrtc import webrtc_streamer, VideoProcessorBase, WebRtcMode
 import av
@@ -37,7 +36,14 @@ def main():
                 },  # TURN server
             ]
         },
-        media_stream_constraints={"video": True, "audio": False},
+        media_stream_constraints={
+            "video": {
+                "width": {"ideal": 640},  # Lower width
+                "height": {"ideal": 480},  # Lower height
+                "frameRate": {"ideal": 15},  # Lower frame rate (optional)
+            },
+            "audio": False,  # Disable audio if not needed
+        },
         video_processor_factory=VideoProcessor,
     )
 
